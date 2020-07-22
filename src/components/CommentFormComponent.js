@@ -3,7 +3,6 @@ import { Button, Modal, ModalHeader, ModalBody, Label, Row, Input } from 'reacts
 import { LocalForm, Control, Errors } from 'react-redux-form';
 
 
-const required = val => val && val.length;
 const maxLength = len => val => !(val) || (val.length <= len);
 const minLength = len => val => val && (val.length >= len);
 
@@ -20,6 +19,12 @@ class CommentForm extends React.Component {
         this.setState({ isOpen: !(this.state.isOpen) });
     }
 
+    handleSubmit(values) {
+        this.toggle();
+        alert(JSON.stringify(values));
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+    }
+
 
     render() {
         return (
@@ -29,20 +34,21 @@ class CommentForm extends React.Component {
                     <ModalHeader toggle={this.toggle}>Submit Comment</ModalHeader>
                     <ModalBody>
                         <div className="container">
-                            <LocalForm>
+                            <LocalForm onSubmit={values => this.handleSubmit(values)}>
                                 <Row className="form-group">
                                     <Label htmlFor="rating">Rating</Label>
-                                    <Input type="select" name="select" id="rating">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </Input>
+                                    <Control.select model='.rating' name="select" id="rating"
+                                        className="form-control">
+                                        <option value='1'>1</option>
+                                        <option value='2'>2</option>
+                                        <option value='3'>3</option>
+                                        <option value='4'>4</option>
+                                        <option value='5'>5</option>
+                                    </Control.select>
                                 </Row>
                                 <Row className="form-group">
                                     <Label htmlFor="name">Your Name</Label>
-                                    <Control.text model=".firstname" id="name" name="authorName"
+                                    <Control.text model=".author" id="name" name="author"
                                         placeholder="Your Name"
                                         className="form-control"
                                         validators={{
@@ -62,7 +68,12 @@ class CommentForm extends React.Component {
                                 </Row>
                                 <Row className="form-group">
                                     <Label htmlFor="comment">Comment</Label>
-                                    <Input type="textarea" name="comment" id="comment" rows={6} />
+                                    <Control.textarea model=".comment" name="comment" id="comment"
+                                        rows={6} className="form-control"
+                                    />
+                                </Row>
+                                <Row className="form-group">
+                                    <Button type="submit" color="primary" >Submit</Button>
                                 </Row>
                             </LocalForm>
                         </div>
