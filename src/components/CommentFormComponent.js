@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, Label, Row, Input } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, Label, Row } from 'reactstrap';
 import { LocalForm, Control, Errors } from 'react-redux-form';
 
 
@@ -21,7 +21,6 @@ class CommentForm extends React.Component {
 
     handleSubmit(values) {
         this.toggle();
-        alert(JSON.stringify(values));
         this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
     }
 
