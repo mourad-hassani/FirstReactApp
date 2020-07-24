@@ -13,6 +13,7 @@ class CommentForm extends React.Component {
             isOpen: false
         }
         this.toggle = this.toggle.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     toggle() {
@@ -21,7 +22,7 @@ class CommentForm extends React.Component {
 
     handleSubmit(values) {
         this.toggle();
-        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+        this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
     }
 
 
