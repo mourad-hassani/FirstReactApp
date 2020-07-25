@@ -1,16 +1,24 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
-
 import RenderLeader from './RenderLeaderComponent';
+import { Loading } from './LoadingComponent';
+import { Stagger } from 'react-animation-components';
 
-function About(props) {
+function About({ leaders, isLoading, errMess }) {
 
-    const leaders = props.leaders.map((leader) => {
-        return (
-            <RenderLeader leader={leader} />
-        );
-    });
+    let leadersList = null;
+    if (isLoading) {
+        leadersList = <Loading />;
+    } else if (errMess) {
+        leadersList = <h1>{errMess}</h1>;
+    } else {
+        leadersList = leaders.map((leader) => {
+            return (
+                <RenderLeader leader={leader} />
+            );
+        });
+    }
 
     return (
         <div className="container">
@@ -67,9 +75,11 @@ function About(props) {
                     <h2>Corporate Leadership</h2>
                 </div>
                 <div className="col-12">
-                    <Media list>
-                        {leaders}
-                    </Media>
+                    <Stagger in>
+                        <Media list>
+                            {leadersList}
+                        </Media>
+                    </Stagger>
                 </div>
             </div>
         </div>

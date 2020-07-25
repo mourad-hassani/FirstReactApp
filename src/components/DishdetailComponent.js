@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { CardBody, CardText, CardTitle, CardImg, Card, Breadcrumb, BreadcrumbItem } from "reactstrap";
 import { Link } from 'react-router-dom';
 import CommentForm from './CommentFormComponent';
@@ -15,7 +15,7 @@ function RenderDish({ dish }) {
                         exitTransform: 'scale(0.5) translateY(-50%)'
                     }}>
                     <Card>
-                        <CardImg top width='100%' top src={baseUrl + dish.image} alt={dish.name} />
+                        <CardImg top width='100%' src={baseUrl + dish.image} alt={dish.name} />
                         <CardBody>
                             <CardTitle>{dish.name}</CardTitle>
                             <CardText>{dish.description}</CardText>
